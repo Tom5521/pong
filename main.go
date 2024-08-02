@@ -14,6 +14,6 @@ const (
 )
 
 func main() {
-	g := NewGame("Pong", BaseWidth, BaseHeight, 1)
+	g := NewGame("Pong", BaseWidth, BaseHeight, 60)
 	g.Create()
 }
