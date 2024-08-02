@@ -4,12 +4,6 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-var (
-	ball   Ball
-	player Paddle
-	cpu    CPUPaddle
-)
-
 const (
 	BaseWidth  = 1280
 	BaseHeight = 800
@@ -91,9 +85,9 @@ func (g *Game) Update() {
 		g.refreshWindowSize(windowWidth, windowHeight)
 	}
 
-	player.Update()
-	ball.Update()
-	cpu.Update(ball.Y)
+	g.Player.Update()
+	g.Ball.Update()
+	g.CPU.Update(g.Ball.Y)
 
 	g.checkCollisions()
 }
@@ -109,50 +103,47 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float32) {
 	speed := (SpeedPercentage / 100) * averageWindowSize
 
 	// Player
-	player.Width = paddleWidth
-	player.Height = paddleHeight
-	player.Speed = speed
-	player.X = windowWidth - player.Width
+	g.Player.Width = paddleWidth
+	g.Player.Height = paddleHeight
+	g.Player.Speed = speed
+	g.Player.X = windowWidth - g.Player.Width
 
 	// CPU
-	cpu.Width = paddleWidth
-	cpu.Height = paddleHeight
-	cpu.Speed = speed
+	g.CPU.Width = paddleWidth
+	g.CPU.Height = paddleHeight
+	g.CPU.Speed = speed
 
-	if ball.SpeedY <= -1 {
-		ball.SpeedY = speed * -1
+	if g.Ball.SpeedY <= -1 {
+		g.Ball.SpeedY = speed * -1
 	}
-	if ball.SpeedX <= -1 {
-		ball.SpeedX = speed * -1
+	if g.Ball.SpeedX <= -1 {
+		g.Ball.SpeedX = speed * -1
 	}
-	ball.Radius = (BallRadiusPercentage / 100) * averageWindowSize
+	g.Ball.Radius = (BallRadiusPercentage / 100) * averageWindowSize
 }
 
 func (g *Game) checkCollisions() {
 	// Checking for collisions
-	if rl.CheckCollisionCircleRec(ball.Vector2, ball.Radius, cpu.Rectangle) {
-		ball.SpeedX *= -1
+	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.CPU.Rectangle) {
+		g.Ball.SpeedX *= -1
 	}
-	if rl.CheckCollisionCircleRec(ball.Vector2, ball.Radius, player.Rectangle) {
-		ball.SpeedX *= -1
+	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.Player.Rectangle) {
+		g.Ball.SpeedX *= -1
 	}
 }
 
 func (g *Game) Draw() {
-	windowWidth := int32(rl.GetScreenWidth())
-	windowHeight := int32(rl.GetScreenHeight())
-
 	rl.ClearBackground(rl.Black)
 	rl.DrawLine(
-		windowWidth/2,
+		g.ScreenWidth/2,
 		0,
-		windowWidth/2,
-		windowHeight,
+		g.ScreenWidth/2,
+		g.ScreenHeight,
 		rl.White,
 	)
-	ball.Draw()
-	player.Draw()
-	cpu.Draw()
+	g.Ball.Draw()
+	g.Player.Draw()
+	g.CPU.Draw()
 }
 
 func (g *Game) Create() {

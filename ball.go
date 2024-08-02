@@ -26,5 +26,5 @@ func (b *Ball) Update() {
 }
 
 func (b Ball) Draw() {
-	rl.DrawCircle(int32(b.X), int32(b.Y), b.Radius, rl.White)
+	rl.DrawCircleV(b.Vector2, b.Radius, rl.White)
 }
