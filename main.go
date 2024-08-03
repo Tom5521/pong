@@ -1,19 +1,26 @@
 package main
 
 const (
-	BaseWidth  = 1280
-	BaseHeight = 800
+	DefaultWidth       = 1280
+	DefaultHeight      = 800
+	DefaultAverageSize = (float32(DefaultWidth) + DefaultHeight) / 2
 
-	AverageBaseSize = (float32(BaseWidth) + BaseHeight) / 2
+	PaddleHeightPercentage = (120 / float32(DefaultWidth)) * 100
+	PaddleWidthPercentage  = (25 / float32(DefaultHeight)) * 100
 
-	PaddleHeightPercentage = (120 / float32(BaseWidth)) * 100
-	PaddleWidthPercentage  = (25 / float32(BaseHeight)) * 100
+	SpeedPercentage      = (7 / DefaultAverageSize) * 100
+	BallRadiusPercentage = (20 / DefaultAverageSize) * 100
+	FontSizePercentage   = (80 / DefaultAverageSize) * 100
 
-	SpeedPercentage      = (7 / AverageBaseSize) * 100
-	BallRadiusPercentage = (20 / AverageBaseSize) * 100
+	DefaultBallRadius = (BallRadiusPercentage / 100) * DefaultAverageSize
+	DefaultSpeed      = (SpeedPercentage / 100) * DefaultAverageSize
+	DefaultFontSize   = (FontSizePercentage / 100) * DefaultAverageSize
+
+	DefaultPaddleHeight = (PaddleHeightPercentage / 100) * DefaultWidth
+	DefaultPaddleWidth  = (PaddleWidthPercentage / 100) * DefaultHeight
 )
 
 func main() {
-	g := NewGame("Pong", BaseWidth, BaseHeight, 60)
+	g := NewGame("Pong", 60)
 	g.Create()
 }

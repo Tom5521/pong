@@ -6,6 +6,7 @@ import (
 
 type Ball struct {
 	rl.Vector2
+
 	SpeedX, SpeedY float32
 	Radius         float32
 }
@@ -17,11 +18,11 @@ func (b *Ball) Update() {
 	w, h := float32(rl.GetScreenWidth()), float32(rl.GetScreenHeight())
 
 	if b.Y+b.Radius >= h || b.Y-b.Radius <= 0 {
-		b.SpeedY *= -1
+		b.SpeedY = -b.SpeedY
 	}
 
 	if b.X+b.Radius >= w || b.X-b.Radius <= 0 {
-		b.SpeedX *= -1
+		b.SpeedX = -b.SpeedX
 	}
 }
 

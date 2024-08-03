@@ -4,7 +4,9 @@ import rl "github.com/gen2brain/raylib-go/raylib"
 
 type Paddle struct {
 	rl.Rectangle
-	Speed float32
+
+	Points uint
+	Speed  float32
 }
 
 func (p Paddle) Draw() {
