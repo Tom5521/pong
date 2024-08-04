@@ -22,5 +22,5 @@ const (
 
 func main() {
 	g := NewGame("Pong", 60)
-	g.Create()
+	g.CreateLoop()
 }

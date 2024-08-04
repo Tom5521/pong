@@ -10,9 +10,11 @@ func (g *Game) checkCollisions() {
 	// Checking for collisions
 	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.CPU.Rectangle) {
 		g.Ball.SpeedX = -g.Ball.SpeedX
+		PlayBeep()
 	}
 	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.Player.Rectangle) {
 		g.Ball.SpeedX = -g.Ball.SpeedX
+		PlayBeep()
 	}
 }
 
