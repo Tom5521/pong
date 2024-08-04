@@ -17,6 +17,7 @@ type Game struct {
 	CPU    CPUPaddle
 
 	pausedText Text
+	playText   Text
 
 	cpuPoints    Text
 	playerPoints Text
@@ -30,7 +31,7 @@ func NewGame(
 	title string,
 	fps int32,
 ) Game {
-	return Game{
+	g := Game{
 		WindowTitle:  title,
 		ScreenWidth:  DefaultWidth,
 		ScreenHeight: DefaultHeight,
@@ -53,7 +54,7 @@ func NewGame(
 			Rectangle: rl.Rectangle{
 				Width:  DefaultPaddleWidth,
 				Height: DefaultPaddleHeight,
-				X:      DefaultWidth - DefaultPaddleWidth,
+				X:      (DefaultWidth - DefaultPaddleWidth) - 10,
 				Y:      DefaultHeight/2 - DefaultPaddleHeight/2,
 			},
 			Speed: DefaultSpeed,
@@ -69,30 +70,43 @@ func NewGame(
 				Speed: DefaultSpeed / 1.3,
 			},
 		},
-		pausedText: Text{
-			Text:     "PAUSED",
-			FontSize: DefaultFontSize,
-			Color:    rl.White,
-		},
-		cpuPoints: Text{
-			Text:     "0",
-			FontSize: DefaultFontSize / 1.1,
-			Color:    rl.LightGray,
-			Vector2: rl.Vector2{
-				X: (DefaultWidth / 2) - 100,
-				Y: DefaultHeight / 2,
-			},
-		},
-		playerPoints: Text{
-			Text:     "0",
-			FontSize: DefaultFontSize / 1.1,
-			Color:    rl.LightGray,
-			Vector2: rl.Vector2{
-				X: (DefaultWidth / 2) + (100 - 38),
-				Y: DefaultHeight / 2,
-			},
+	}
+
+	g.pausedText = Text{
+		Text:     "PAUSED",
+		FontSize: DefaultFontSize,
+		Color:    rl.White,
+	}
+	g.pausedText.X = (DefaultWidth / 2) + (100 - float32(len(g.pausedText.Text)*38))
+	g.pausedText.Y = DefaultHeight / 2
+
+	g.playerPoints = Text{
+		Text:     "0",
+		FontSize: DefaultFontSize / 1.1,
+		Color:    rl.LightGray,
+	}
+	g.playerPoints.X = (DefaultWidth / 2) + (100 - float32(len(g.playerPoints.Text)*38))
+	g.playerPoints.Y = DefaultHeight / 2
+
+	g.cpuPoints = Text{
+		Text:     "0",
+		FontSize: DefaultFontSize / 1.1,
+		Color:    rl.LightGray,
+	}
+	g.cpuPoints.X = (DefaultWidth / 2) + (100 - float32(len(g.cpuPoints.Text)*38))
+	g.cpuPoints.Y = DefaultHeight / 2
+
+	g.playText = Text{
+		Text:     "Press [space] to play",
+		Color:    rl.White,
+		FontSize: DefaultFontSize / 1.1,
+		Vector2: rl.Vector2{
+			Y: float32(g.ScreenHeight) / 4,
 		},
 	}
+	g.playText.X = (DefaultWidth / 2) - float32(len(g.playText.Text))*38
+
+	return g
 }
 
 func (g *Game) Draw() {
@@ -117,18 +131,7 @@ func (g *Game) Draw() {
 	}
 
 	if g.isWaiting4Play {
-		t := Text{
-			Text:     "Press [space] to play",
-			Color:    rl.White,
-			FontSize: DefaultFontSize / 1.1,
-			Vector2: rl.Vector2{
-				Y: float32(g.ScreenHeight) / 4,
-			},
-		}
-		totalLen := len(t.Text) * 38
-		t.X = (float32(g.ScreenWidth) / 2) - float32(totalLen)/2
-
-		t.Draw()
+		g.playText.Draw()
 	}
 }
 
