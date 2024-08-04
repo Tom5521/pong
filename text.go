@@ -2,6 +2,15 @@ package main
 
 import rl "github.com/gen2brain/raylib-go/raylib"
 
+func MeasureText(text string, size float32) rl.Vector2 {
+	return rl.MeasureTextEx(
+		rl.GetFontDefault(),
+		text,
+		size,
+		5,
+	)
+}
+
 type Text struct {
 	rl.Vector2
 

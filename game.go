@@ -78,7 +78,7 @@ func NewGame(
 		FontSize: DefaultFontSize,
 		Color:    rl.White,
 	}
-	g.pausedText.X = (DefaultWidth / 2) + (100 - float32(len(g.pausedText.Text)*38))
+	g.pausedText.X = (DefaultWidth / 2) + (100 - MeasureText(g.pausedText.Text, DefaultFontSize).X)
 	g.pausedText.Y = DefaultHeight / 2
 
 	g.playerPoints = Text{
@@ -86,7 +86,7 @@ func NewGame(
 		FontSize: DefaultFontSize / 1.1,
 		Color:    rl.LightGray,
 	}
-	g.playerPoints.X = (DefaultWidth / 2) + (100 - float32(len(g.playerPoints.Text)*38))
+	g.playerPoints.X = (DefaultWidth / 2) + (100 - MeasureText(g.playerPoints.Text, g.playerPoints.FontSize).X)
 	g.playerPoints.Y = DefaultHeight / 2
 
 	g.cpuPoints = Text{
@@ -94,7 +94,7 @@ func NewGame(
 		FontSize: DefaultFontSize / 1.1,
 		Color:    rl.LightGray,
 	}
-	g.cpuPoints.X = (DefaultWidth / 2) + (100 - float32(len(g.cpuPoints.Text)*38))
+	g.cpuPoints.X = (DefaultWidth / 2) + (100 - MeasureText(g.cpuPoints.Text, g.cpuPoints.FontSize).X)
 	g.cpuPoints.Y = DefaultHeight / 2
 
 	g.playText = Text{
@@ -105,7 +105,7 @@ func NewGame(
 			Y: float32(g.ScreenHeight) / 4,
 		},
 	}
-	g.playText.X = (DefaultWidth / 2) - float32(len(g.playText.Text))*38
+	g.playText.X = (DefaultWidth / 2) - MeasureText(g.playText.Text, g.playText.FontSize).X
 
 	return g
 }

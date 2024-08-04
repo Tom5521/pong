@@ -82,16 +82,16 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float32) {
 	g.playText.FontSize = fontSize / 1.1
 
 	// Update text positions.
-	g.pausedText.X = (windowWidth / 2) + (100 - float32(len(g.pausedText.Text))*38)
+	g.pausedText.X = (windowWidth / 2) + (100 - MeasureText(g.pausedText.Text, g.pausedText.FontSize).X)
 	g.pausedText.Y = windowHeight / 3
 
 	g.cpuPoints.Y = windowHeight / 2
 	g.cpuPoints.X = (windowWidth / 2) - 100
 
-	g.playerPoints.X = (windowWidth / 2) + (100 - 38*float32(len(g.playerPoints.Text)))
+	g.playerPoints.X = (windowWidth / 2) + (100 - MeasureText(g.playerPoints.Text, g.playerPoints.FontSize).X)
 	g.playerPoints.Y = windowHeight / 2
 
-	g.playText.X = (windowWidth / 2) - (38 * float32(len(g.playText.Text)) / 2)
+	g.playText.X = (windowWidth / 2) - (MeasureText(g.playText.Text, g.playText.FontSize).X / 2)
 	g.playText.Y = windowHeight / 4
 }
 
