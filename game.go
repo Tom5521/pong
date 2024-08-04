@@ -70,6 +70,7 @@ func NewGame(
 				Speed: DefaultSpeed / 1.3,
 			},
 		},
+		isWaiting4Play: true,
 	}
 
 	g.pausedText = Text{
