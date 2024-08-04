@@ -9,7 +9,7 @@ func (c *CPUPaddle) Update(ballY float32) {
 	if center > ballY {
 		c.Y -= float32(c.Speed)
 	}
-	if center <= ballY {
+	if center < ballY {
 		c.Y += float32(c.Speed)
 	}
 	c.limitMovement()
