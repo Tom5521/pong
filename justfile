@@ -9,7 +9,7 @@ compile goos goarch:
   #!/bin/bash
 
   if [[ {{goos}} == "windows" ]]; then
-    CGO_ENABLED=0 GOOS={{goos}} GOARCH={{goarch}} go build -ldflags "-s -w" -v -o builds/pong-{{goos}}-{{goarch}}.exe
+    CC=x86_64-w64-mingw32-gcc CGO_ENABLED=1 GOOS={{goos}} GOARCH={{goarch}} go build -ldflags "-s -w" -v -o builds/pong-{{goos}}-{{goarch}}.exe
     exit
   fi
 
