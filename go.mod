@@ -1,6 +1,6 @@
 module pong
 
-go 1.22.5
+go 1.23
 
 require github.com/gen2brain/raylib-go/raylib v0.0.0-20240628125141-62016ee92fc0
 
