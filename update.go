@@ -14,12 +14,14 @@ func (g *Game) Update() {
 	if g.isWaiting4Play {
 		if rl.IsKeyPressed(rl.KeySpace) {
 			g.isWaiting4Play = !g.isWaiting4Play
+			rl.PlaySound(pauseSound)
 		}
 		return
 	}
 
 	if rl.IsKeyPressed(rl.KeySpace) {
 		g.isPaused = !g.isPaused
+		rl.PlaySound(pauseSound)
 	}
 	if g.isPaused {
 		return
@@ -72,6 +74,11 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float) {
 	}
 	if g.Ball.X > windowWidth {
 		g.Ball.X = windowWidth - g.Ball.Radius
+	}
+
+	if g.isWaiting4Play {
+		g.Ball.X = windowWidth / 2
+		g.Ball.Y = windowHeight / 2
 	}
 
 	// Update font sizes.

@@ -44,10 +44,13 @@ func (g *Game) checkForPoints() {
 	if player {
 		g.CPU.Points++
 		g.cpuPoints.Text = strconv.Itoa(g.CPU.Points)
+
+		rl.PlaySound(loseSound)
 	}
 	if cpu {
 		g.Player.Points++
 		g.playerPoints.Text = strconv.Itoa(g.Player.Points)
+		rl.PlaySound(victorySound)
 	}
 
 	if player || cpu {
