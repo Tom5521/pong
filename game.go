@@ -135,8 +135,6 @@ func (g *Game) Draw() {
 }
 
 func (g *Game) CreateLoop() {
-	rl.InitAudioDevice()
-	audioLoaded <- struct{}{}
 	rl.SetConfigFlags(rl.FlagWindowResizable)
 	rl.InitWindow(g.ScreenWidth, g.ScreenHeight, g.WindowTitle)
 	defer rl.CloseWindow()
