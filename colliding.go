@@ -8,11 +8,11 @@ import (
 
 func (g *Game) checkCollisions() {
 	// Checking for collisions
-	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.CPU.Rectangle) {
+	if rl.CheckCollisionCircleRec(g.Ball.Vector, g.Ball.Radius, g.CPU.Rectangle) {
 		g.Ball.SpeedX = -g.Ball.SpeedX
 		PlayBeep()
 	}
-	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.Player.Rectangle) {
+	if rl.CheckCollisionCircleRec(g.Ball.Vector, g.Ball.Radius, g.Player.Rectangle) {
 		g.Ball.SpeedX = -g.Ball.SpeedX
 		PlayBeep()
 	}
@@ -20,22 +20,22 @@ func (g *Game) checkCollisions() {
 
 func (g *Game) checkForPoints() {
 	player := rl.CheckCollisionCircleRec(
-		g.Ball.Vector2,
+		g.Ball.Vector,
 		g.Ball.Radius,
-		rl.Rectangle{
+		Rectangle{
 			Width:  1,
-			Height: float32(g.ScreenHeight),
-			X:      float32(g.ScreenWidth),
+			Height: float(g.ScreenHeight),
+			X:      float(g.ScreenWidth),
 			Y:      0,
 		},
 	)
 
 	cpu := rl.CheckCollisionCircleRec(
-		g.Ball.Vector2,
+		g.Ball.Vector,
 		g.Ball.Radius,
-		rl.Rectangle{
+		Rectangle{
 			Width:  1,
-			Height: float32(g.ScreenHeight),
+			Height: float(g.ScreenHeight),
 			X:      1,
 			Y:      0,
 		},
@@ -43,11 +43,11 @@ func (g *Game) checkForPoints() {
 
 	if player {
 		g.CPU.Points++
-		g.cpuPoints.Text = strconv.Itoa(int(g.CPU.Points))
+		g.cpuPoints.Text = strconv.Itoa(g.CPU.Points)
 	}
 	if cpu {
 		g.Player.Points++
-		g.playerPoints.Text = strconv.Itoa(int(g.Player.Points))
+		g.playerPoints.Text = strconv.Itoa(g.Player.Points)
 	}
 
 	if player || cpu {

@@ -5,10 +5,10 @@ import (
 )
 
 type Paddle struct {
-	rl.Rectangle
+	Rectangle
 
-	Points uint
-	Speed  float32
+	Points int
+	Speed  float
 }
 
 func (p Paddle) Draw() {
@@ -30,8 +30,8 @@ func (p *Paddle) Update() {
 }
 
 func (p *Paddle) limitMovement() {
-	if p.Y+p.Height >= float32(rl.GetScreenHeight()) {
-		p.Y = float32(rl.GetScreenHeight()) - p.Height
+	if p.Y+p.Height >= float(rl.GetScreenHeight()) {
+		p.Y = float(rl.GetScreenHeight()) - p.Height
 	}
 
 	if p.Y <= 0 {

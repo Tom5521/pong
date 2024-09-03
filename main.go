@@ -1,12 +1,14 @@
 package main
 
+import rl "github.com/gen2brain/raylib-go/raylib"
+
 const (
 	DefaultWidth       = 1280
 	DefaultHeight      = 800
-	DefaultAverageSize = (float32(DefaultWidth) + DefaultHeight) / 2
+	DefaultAverageSize = (float(DefaultWidth) + DefaultHeight) / 2
 
-	PaddleHeightPercentage = (120 / float32(DefaultWidth)) * 100
-	PaddleWidthPercentage  = (25 / float32(DefaultHeight)) * 100
+	PaddleHeightPercentage = (120 / float(DefaultWidth)) * 100
+	PaddleWidthPercentage  = (25 / float(DefaultHeight)) * 100
 
 	SpeedPercentage      = (7 / DefaultAverageSize) * 100
 	BallRadiusPercentage = (20 / DefaultAverageSize) * 100
@@ -18,6 +20,13 @@ const (
 
 	DefaultPaddleHeight = (PaddleHeightPercentage / 100) * DefaultWidth
 	DefaultPaddleWidth  = (PaddleWidthPercentage / 100) * DefaultHeight
+)
+
+type (
+	float     = float32
+	rint      = int32
+	Vector    = rl.Vector2
+	Rectangle = rl.Rectangle
 )
 
 func main() {

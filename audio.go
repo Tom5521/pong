@@ -25,7 +25,7 @@ func init() {
 		b, _ := io.ReadAll(file)
 
 		stat, _ := file.Stat()
-		beepWave = rl.LoadWaveFromMemory(".mp3", b, int32(stat.Size()))
+		beepWave = rl.LoadWaveFromMemory(".mp3", b, rint(stat.Size()))
 		beepSound = rl.LoadSoundFromWave(beepWave)
 	}()
 }

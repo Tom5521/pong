@@ -5,8 +5,8 @@ import (
 )
 
 func (g *Game) Update() {
-	windowWidth := float32(rl.GetScreenWidth())
-	windowHeight := float32(rl.GetScreenHeight())
+	windowWidth := float(rl.GetScreenWidth())
+	windowHeight := float(rl.GetScreenHeight())
 	if g.lastWindowSize.X != windowWidth || g.lastWindowSize.Y != windowHeight {
 		g.refreshWindowSize(windowWidth, windowHeight)
 	}
@@ -33,10 +33,10 @@ func (g *Game) Update() {
 	g.checkForPoints()
 }
 
-func (g *Game) refreshWindowSize(windowWidth, windowHeight float32) {
+func (g *Game) refreshWindowSize(windowWidth, windowHeight float) {
 	// Update screen sizes
-	g.ScreenHeight = int32(windowHeight)
-	g.ScreenWidth = int32(windowWidth)
+	g.ScreenHeight = rint(windowHeight)
+	g.ScreenWidth = rint(windowWidth)
 
 	// Precompute values.
 
@@ -98,11 +98,11 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float32) {
 func (g *Game) ResetToDefaultState() {
 	g.isWaiting4Play = true
 
-	g.Ball.X = float32(g.ScreenWidth) / 2
-	g.Ball.Y = float32(g.ScreenHeight) / 2
+	g.Ball.X = float(g.ScreenWidth) / 2
+	g.Ball.Y = float(g.ScreenHeight) / 2
 
-	g.Player.Y = (float32(g.ScreenHeight) / 2) - (g.Player.Height / 2)
-	g.CPU.Y = (float32(g.ScreenHeight) / 2) - (g.CPU.Height / 2)
+	g.Player.Y = (float(g.ScreenHeight) / 2) - (g.Player.Height / 2)
+	g.CPU.Y = (float(g.ScreenHeight) / 2) - (g.CPU.Height / 2)
 }
 
 func (g *Game) Pause() {

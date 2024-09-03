@@ -4,13 +4,13 @@ type CPUPaddle struct {
 	Paddle
 }
 
-func (c *CPUPaddle) Update(ballY float32) {
+func (c *CPUPaddle) Update(ballY float) {
 	center := c.Y + c.Height/2
 	if center > ballY {
-		c.Y -= float32(c.Speed)
+		c.Y -= float(c.Speed)
 	}
 	if center < ballY {
-		c.Y += float32(c.Speed)
+		c.Y += float(c.Speed)
 	}
 	c.limitMovement()
 }
