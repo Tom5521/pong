@@ -7,10 +7,28 @@ compile:
 
 build os arch:
     #!/bin/bash
+
+    bin_name=./builds/pong-{{os}}-{{arch}}
+    compiler=gcc
+    cgo_enabled=1
+    ldflags="-s -w"
+
     if [[ "{{os}}" == "windows" ]]; then
-        CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS={{os}} GOARCH={{arch}} \
-        go build -ldflags "-s -w -H=windowsgui" -v -tags rgfw -o ./builds/pong-{{ os }}-{{ arch }}.exe .
+        bin_name="$bin_name.exe"
+        compiler=x86_64-w64-mingw32-gcc
+        ldflags="$ldflags -H=windowsgui" 
+    fi
+    CGO_ENABLED=$cgo_enabled CC=$compiler GOOS={{os}} GOARCH={{arch}} \
+    go build -ldflags "$ldflags" -v -tags rgfw -o $bin_name
+
+    just compress $bin_name
+
+compress bin:
+    #!/bin/bash
+
+    which upx > /dev/null 2>&1
+    if [[ $? != 0 ]]; then
         exit 0
     fi
-    CGO_ENABLED=1 CC=gcc GOOS={{os}} GOARCH={{arch}} \
-    go build -ldflags "-s -w" -v -tags rgfw -o ./builds/pong-{{os}}-{{arch}}
+
+    upx --best {{bin}}
