@@ -5,8 +5,8 @@ import (
 )
 
 func (g *Game) Update() {
-	windowWidth := float32(rl.GetScreenWidth())
-	windowHeight := float32(rl.GetScreenHeight())
+	windowWidth := f(rl.GetScreenWidth())
+	windowHeight := f(rl.GetScreenHeight())
 	if g.lastWindowSize.X != windowWidth || g.lastWindowSize.Y != windowHeight {
 		g.refreshWindowSize(windowWidth, windowHeight)
 	}
@@ -14,12 +14,14 @@ func (g *Game) Update() {
 	if g.isWaiting4Play {
 		if rl.IsKeyPressed(rl.KeySpace) {
 			g.isWaiting4Play = !g.isWaiting4Play
+			rl.PlaySound(pauseSound)
 		}
 		return
 	}
 
 	if rl.IsKeyPressed(rl.KeySpace) {
 		g.isPaused = !g.isPaused
+		rl.PlaySound(pauseSound)
 	}
 	if g.isPaused {
 		return
@@ -33,10 +35,10 @@ func (g *Game) Update() {
 	g.checkForPoints()
 }
 
-func (g *Game) refreshWindowSize(windowWidth, windowHeight float32) {
+func (g *Game) refreshWindowSize(windowWidth, windowHeight float) {
 	// Update screen sizes
-	g.ScreenHeight = int32(windowHeight)
-	g.ScreenWidth = int32(windowWidth)
+	g.ScreenHeight = rint(windowHeight)
+	g.ScreenWidth = rint(windowWidth)
 
 	// Precompute values.
 
@@ -74,6 +76,11 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float32) {
 		g.Ball.X = windowWidth - g.Ball.Radius
 	}
 
+	if g.isWaiting4Play {
+		g.Ball.X = windowWidth / 2
+		g.Ball.Y = windowHeight / 2
+	}
+
 	// Update font sizes.
 	g.pausedText.FontSize = fontSize
 	g.playerPoints.FontSize = fontSize / 1.1
@@ -98,11 +105,11 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float32) {
 func (g *Game) ResetToDefaultState() {
 	g.isWaiting4Play = true
 
-	g.Ball.X = float32(g.ScreenWidth) / 2
-	g.Ball.Y = float32(g.ScreenHeight) / 2
+	g.Ball.X = f(g.ScreenWidth) / 2
+	g.Ball.Y = f(g.ScreenHeight) / 2
 
-	g.Player.Y = (float32(g.ScreenHeight) / 2) - (g.Player.Height / 2)
-	g.CPU.Y = (float32(g.ScreenHeight) / 2) - (g.CPU.Height / 2)
+	g.Player.Y = (f(g.ScreenHeight) / 2) - (g.Player.Height / 2)
+	g.CPU.Y = (f(g.ScreenHeight) / 2) - (g.CPU.Height / 2)
 }
 
 func (g *Game) Pause() {

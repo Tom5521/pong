@@ -5,17 +5,17 @@ import (
 )
 
 type Ball struct {
-	rl.Vector2
+	Vector
 
-	SpeedX, SpeedY float32
-	Radius         float32
+	SpeedX, SpeedY float
+	Radius         float
 }
 
 func (b *Ball) Update() {
 	b.X += b.SpeedX
 	b.Y += b.SpeedY
 
-	w, h := float32(rl.GetScreenWidth()), float32(rl.GetScreenHeight())
+	w, h := f(rl.GetScreenWidth()), f(rl.GetScreenHeight())
 
 	if b.Y+b.Radius >= h || b.Y-b.Radius <= 0 {
 		b.SpeedY = -b.SpeedY
@@ -27,5 +27,5 @@ func (b *Ball) Update() {
 }
 
 func (b Ball) Draw() {
-	rl.DrawCircleV(b.Vector2, b.Radius, rl.White)
+	rl.DrawCircleV(b.Vector, b.Radius, rl.White)
 }

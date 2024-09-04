@@ -2,7 +2,7 @@ package main
 
 import rl "github.com/gen2brain/raylib-go/raylib"
 
-func MeasureText(text string, size float32) rl.Vector2 {
+func MeasureText(text string, size float) Vector {
 	return rl.MeasureTextEx(
 		rl.GetFontDefault(),
 		text,
@@ -12,15 +12,15 @@ func MeasureText(text string, size float32) rl.Vector2 {
 }
 
 type Text struct {
-	rl.Vector2
+	Vector
 
 	Text string
 
-	FontSize float32
+	FontSize float
 	Color    rl.Color
 }
 
-func NewText(text string, pos rl.Vector2, fontSize float32, color rl.Color) Text {
+func NewText(text string, pos Vector, fontSize float, color rl.Color) Text {
 	return Text{
 		pos,
 		text,
@@ -33,7 +33,7 @@ func (t Text) Draw() {
 	rl.DrawTextEx(
 		rl.GetFontDefault(),
 		t.Text,
-		t.Vector2,
+		t.Vector,
 		t.FontSize,
 		5,
 		t.Color,

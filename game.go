@@ -1,16 +1,14 @@
 package main
 
 import (
-	"fmt"
-
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
 type Game struct {
-	ScreenWidth  int32
-	ScreenHeight int32
+	ScreenWidth  rint
+	ScreenHeight rint
 	WindowTitle  string
-	FPS          int32
+	FPS          rint
 
 	Ball   Ball
 	Player Paddle
@@ -22,27 +20,27 @@ type Game struct {
 	cpuPoints    Text
 	playerPoints Text
 
-	lastWindowSize rl.Vector2
+	lastWindowSize Vector
 	isPaused       bool
 	isWaiting4Play bool
 }
 
 func NewGame(
 	title string,
-	fps int32,
+	fps rint,
 ) Game {
 	g := Game{
 		WindowTitle:  title,
 		ScreenWidth:  DefaultWidth,
 		ScreenHeight: DefaultHeight,
 		FPS:          fps,
-		lastWindowSize: rl.Vector2{
+		lastWindowSize: Vector{
 			X: DefaultWidth,
 			Y: DefaultHeight,
 		},
 
 		Ball: Ball{
-			Vector2: rl.Vector2{
+			Vector: Vector{
 				X: DefaultWidth / 2,
 				Y: DefaultHeight / 2,
 			},
@@ -51,7 +49,7 @@ func NewGame(
 			SpeedY: DefaultSpeed,
 		},
 		Player: Paddle{
-			Rectangle: rl.Rectangle{
+			Rectangle: Rectangle{
 				Width:  DefaultPaddleWidth,
 				Height: DefaultPaddleHeight,
 				X:      (DefaultWidth - DefaultPaddleWidth) - 10,
@@ -61,7 +59,7 @@ func NewGame(
 		},
 		CPU: CPUPaddle{
 			Paddle: Paddle{
-				Rectangle: rl.Rectangle{
+				Rectangle: Rectangle{
 					Width:  DefaultPaddleWidth,
 					Height: DefaultPaddleHeight,
 					X:      10,
@@ -101,8 +99,8 @@ func NewGame(
 		Text:     "Press [space] to play",
 		Color:    rl.White,
 		FontSize: DefaultFontSize / 1.1,
-		Vector2: rl.Vector2{
-			Y: float32(g.ScreenHeight) / 4,
+		Vector: Vector{
+			Y: f(g.ScreenHeight) / 4,
 		},
 	}
 	g.playText.X = (DefaultWidth / 2) - MeasureText(g.playText.Text, g.playText.FontSize).X
@@ -137,14 +135,10 @@ func (g *Game) Draw() {
 }
 
 func (g *Game) CreateLoop() {
-	rl.InitAudioDevice()
-	audioLoaded <- struct{}{}
 	rl.SetConfigFlags(rl.FlagWindowResizable)
 	rl.InitWindow(g.ScreenWidth, g.ScreenHeight, g.WindowTitle)
 	defer rl.CloseWindow()
 	rl.SetTargetFPS(60)
-
-	fmt.Println(rl.GetFontDefault().BaseSize)
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()

@@ -1,16 +1,41 @@
 
+skip-compress := env_var_or_default("SKIP_COMPRESS","0")
 
-build:
-  just compile windows amd64
-  just compile linux amd64
+run:
+    CC=gcc go run -v -tags rgfw .
 
-[private]
-compile goos goarch:
-  #!/bin/bash
+compile:
+    just build windows amd64
+    just build linux amd64
 
-  if [[ {{goos}} == "windows" ]]; then
-    CC=x86_64-w64-mingw32-gcc CGO_ENABLED=1 GOOS={{goos}} GOARCH={{goarch}} go build -ldflags "-s -w" -v -o builds/pong-{{goos}}-{{goarch}}.exe
-    exit
-  fi
+build os arch:
+    #!/bin/bash
 
-  CC=gcc GOOS={{goos}} GOARCH={{goarch}} go build -ldflags "-s -w" -v -o builds/pong-{{goos}}-{{goarch}}
+    bin_name=./builds/pong-{{os}}-{{arch}}
+    compiler=gcc
+    cgo_enabled=1
+    ldflags="-s -w"
+
+    if [[ "{{os}}" == "windows" ]]; then
+        bin_name="$bin_name.exe"
+        compiler=x86_64-w64-mingw32-gcc
+        ldflags="$ldflags -H=windowsgui" 
+    fi
+    CGO_ENABLED=$cgo_enabled CC=$compiler GOOS={{os}} GOARCH={{arch}} \
+    go build -ldflags "$ldflags" -v -tags rgfw -o $bin_name
+
+    if [[ {{skip-compress}} == 1 ]]; then
+        exit 0
+    fi
+
+    just compress $bin_name
+
+compress bin:
+    #!/bin/bash
+
+    which upx > /dev/null 2>&1
+    if [[ $? != 0 ]]; then
+        exit 0
+    fi
+
+    upx --best {{bin}}

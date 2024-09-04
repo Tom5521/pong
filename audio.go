@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"io"
+	"strings"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -11,25 +12,27 @@ import (
 var assets embed.FS
 
 var (
-	audioLoaded = make(chan struct{})
-
-	beepSound rl.Sound
-	beepWave  rl.Wave
+	beepSound    rl.Sound
+	loseSound    rl.Sound
+	pauseSound   rl.Sound
+	victorySound rl.Sound
 )
 
-func init() {
-	go func() {
-		<-audioLoaded
-		file, _ := assets.Open("assets/beep.mp3")
+func loadSound(name string) rl.Sound {
+	file, _ := assets.Open("assets/" + name)
+	bytes, _ := io.ReadAll(file)
 
-		b, _ := io.ReadAll(file)
+	parts := strings.SplitN(name, ".", 2)
 
-		stat, _ := file.Stat()
-		beepWave = rl.LoadWaveFromMemory(".mp3", b, int32(stat.Size()))
-		beepSound = rl.LoadSoundFromWave(beepWave)
-	}()
+	wave := rl.LoadWaveFromMemory("."+parts[len(parts)-1], bytes, rint(len(bytes)))
+	return rl.LoadSoundFromWave(wave)
 }
 
-func PlayBeep() {
-	rl.PlaySound(beepSound)
+func init() {
+	rl.InitAudioDevice()
+
+	beepSound = loadSound("beep.mp3")
+	loseSound = loadSound("lose.mp3")
+	pauseSound = loadSound("pause.wav")
+	victorySound = loadSound("victory.mp3")
 }
