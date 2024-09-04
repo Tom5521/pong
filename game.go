@@ -100,7 +100,7 @@ func NewGame(
 		Color:    rl.White,
 		FontSize: DefaultFontSize / 1.1,
 		Vector: Vector{
-			Y: float(g.ScreenHeight) / 4,
+			Y: f(g.ScreenHeight) / 4,
 		},
 	}
 	g.playText.X = (DefaultWidth / 2) - MeasureText(g.playText.Text, g.playText.FontSize).X

@@ -5,10 +5,10 @@ import rl "github.com/gen2brain/raylib-go/raylib"
 const (
 	DefaultWidth       = 1280
 	DefaultHeight      = 800
-	DefaultAverageSize = (float(DefaultWidth) + DefaultHeight) / 2
+	DefaultAverageSize = (f(DefaultWidth) + DefaultHeight) / 2
 
-	PaddleHeightPercentage = (120 / float(DefaultWidth)) * 100
-	PaddleWidthPercentage  = (25 / float(DefaultHeight)) * 100
+	PaddleHeightPercentage = (120 / f(DefaultWidth)) * 100
+	PaddleWidthPercentage  = (25 / f(DefaultHeight)) * 100
 
 	SpeedPercentage      = (7 / DefaultAverageSize) * 100
 	BallRadiusPercentage = (20 / DefaultAverageSize) * 100
@@ -23,7 +23,9 @@ const (
 )
 
 type (
-	float     = float32
+	float = float32
+	// This will be used **ONLY FOR TYPE CONVERSIONS**.
+	f         = float
 	rint      = int32
 	Vector    = rl.Vector2
 	Rectangle = rl.Rectangle

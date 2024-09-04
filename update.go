@@ -5,8 +5,8 @@ import (
 )
 
 func (g *Game) Update() {
-	windowWidth := float(rl.GetScreenWidth())
-	windowHeight := float(rl.GetScreenHeight())
+	windowWidth := f(rl.GetScreenWidth())
+	windowHeight := f(rl.GetScreenHeight())
 	if g.lastWindowSize.X != windowWidth || g.lastWindowSize.Y != windowHeight {
 		g.refreshWindowSize(windowWidth, windowHeight)
 	}
@@ -105,11 +105,11 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float) {
 func (g *Game) ResetToDefaultState() {
 	g.isWaiting4Play = true
 
-	g.Ball.X = float(g.ScreenWidth) / 2
-	g.Ball.Y = float(g.ScreenHeight) / 2
+	g.Ball.X = f(g.ScreenWidth) / 2
+	g.Ball.Y = f(g.ScreenHeight) / 2
 
-	g.Player.Y = (float(g.ScreenHeight) / 2) - (g.Player.Height / 2)
-	g.CPU.Y = (float(g.ScreenHeight) / 2) - (g.CPU.Height / 2)
+	g.Player.Y = (f(g.ScreenHeight) / 2) - (g.Player.Height / 2)
+	g.CPU.Y = (f(g.ScreenHeight) / 2) - (g.CPU.Height / 2)
 }
 
 func (g *Game) Pause() {

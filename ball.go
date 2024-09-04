@@ -15,7 +15,7 @@ func (b *Ball) Update() {
 	b.X += b.SpeedX
 	b.Y += b.SpeedY
 
-	w, h := float(rl.GetScreenWidth()), float(rl.GetScreenHeight())
+	w, h := f(rl.GetScreenWidth()), f(rl.GetScreenHeight())
 
 	if b.Y+b.Radius >= h || b.Y-b.Radius <= 0 {
 		b.SpeedY = -b.SpeedY

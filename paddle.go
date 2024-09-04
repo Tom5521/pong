@@ -30,8 +30,8 @@ func (p *Paddle) Update() {
 }
 
 func (p *Paddle) limitMovement() {
-	if p.Y+p.Height >= float(rl.GetScreenHeight()) {
-		p.Y = float(rl.GetScreenHeight()) - p.Height
+	if p.Y+p.Height >= f(rl.GetScreenHeight()) {
+		p.Y = f(rl.GetScreenHeight()) - p.Height
 	}
 
 	if p.Y <= 0 {

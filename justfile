@@ -1,3 +1,6 @@
+
+skip-compress := env_var_or_default("SKIP_COMPRESS","0")
+
 run:
     CC=gcc go run -v -tags rgfw .
 
@@ -20,6 +23,10 @@ build os arch:
     fi
     CGO_ENABLED=$cgo_enabled CC=$compiler GOOS={{os}} GOARCH={{arch}} \
     go build -ldflags "$ldflags" -v -tags rgfw -o $bin_name
+
+    if [[ {{skip-compress}} == 1 ]]; then
+        exit 0
+    fi
 
     just compress $bin_name
 

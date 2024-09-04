@@ -24,8 +24,8 @@ func (g *Game) checkForPoints() {
 		g.Ball.Radius,
 		Rectangle{
 			Width:  1,
-			Height: float(g.ScreenHeight),
-			X:      float(g.ScreenWidth),
+			Height: f(g.ScreenHeight),
+			X:      f(g.ScreenWidth),
 			Y:      0,
 		},
 	)
@@ -35,7 +35,7 @@ func (g *Game) checkForPoints() {
 		g.Ball.Radius,
 		Rectangle{
 			Width:  1,
-			Height: float(g.ScreenHeight),
+			Height: f(g.ScreenHeight),
 			X:      1,
 			Y:      0,
 		},
@@ -47,9 +47,11 @@ func (g *Game) checkForPoints() {
 
 		rl.PlaySound(loseSound)
 	}
+
 	if cpu {
 		g.Player.Points++
 		g.playerPoints.Text = strconv.Itoa(g.Player.Points)
+
 		rl.PlaySound(victorySound)
 	}
 
