@@ -11,11 +11,24 @@ import (
 func (g *Game) checkCollisions() {
 	// Checking for collisions
 	if rl.CheckCollisionCircleRec(g.Ball.Vector, g.Ball.Radius, g.CPU.Rectangle) {
-		g.Ball.SpeedX = -g.Ball.SpeedX
+		if g.Ball.Y < g.CPU.Y || g.Ball.Y > g.CPU.Y+g.CPU.Height {
+			g.Ball.SpeedY = -g.Ball.SpeedX
+		}
+
+		if g.Ball.X < g.CPU.X || g.Ball.X > g.CPU.X+g.CPU.Width {
+			g.Ball.SpeedX = -g.Ball.SpeedX
+		}
+
 		rl.PlaySound(audio.Beep)
 	}
 	if rl.CheckCollisionCircleRec(g.Ball.Vector, g.Ball.Radius, g.Player.Rectangle) {
-		g.Ball.SpeedX = -g.Ball.SpeedX
+		if g.Ball.Y < g.Player.Y || g.Ball.Y > g.Player.Y+g.Player.Height {
+			g.Ball.SpeedY = -g.Ball.SpeedX
+		}
+		if g.Ball.X < g.Player.X || g.Ball.X > g.Player.X+g.Player.Width {
+			g.Ball.SpeedX = -g.Ball.SpeedX
+		}
+
 		rl.PlaySound(audio.Beep)
 	}
 }
