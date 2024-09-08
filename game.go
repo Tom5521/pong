@@ -1,6 +1,8 @@
 package main
 
 import (
+	"pong/audio"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -142,7 +144,7 @@ func (g *Game) CreateLoop() {
 	defer rl.CloseAudioDevice()
 	rl.SetTargetFPS(60)
 
-	loadSounds()
+	audio.Load()
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()

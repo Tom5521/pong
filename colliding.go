@@ -3,6 +3,8 @@ package main
 import (
 	"strconv"
 
+	"pong/audio"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -10,11 +12,11 @@ func (g *Game) checkCollisions() {
 	// Checking for collisions
 	if rl.CheckCollisionCircleRec(g.Ball.Vector, g.Ball.Radius, g.CPU.Rectangle) {
 		g.Ball.SpeedX = -g.Ball.SpeedX
-		rl.PlaySound(beepSound)
+		rl.PlaySound(audio.Beep)
 	}
 	if rl.CheckCollisionCircleRec(g.Ball.Vector, g.Ball.Radius, g.Player.Rectangle) {
 		g.Ball.SpeedX = -g.Ball.SpeedX
-		rl.PlaySound(beepSound)
+		rl.PlaySound(audio.Beep)
 	}
 }
 
@@ -45,14 +47,14 @@ func (g *Game) checkForPoints() {
 		g.CPU.Points++
 		g.cpuPoints.Text = strconv.Itoa(g.CPU.Points)
 
-		rl.PlaySound(loseSound)
+		rl.PlaySound(audio.Lose)
 	}
 
 	if cpu {
 		g.Player.Points++
 		g.playerPoints.Text = strconv.Itoa(g.Player.Points)
 
-		rl.PlaySound(victorySound)
+		rl.PlaySound(audio.Victory)
 	}
 
 	if player || cpu {

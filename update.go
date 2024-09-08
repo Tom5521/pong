@@ -1,6 +1,8 @@
 package main
 
 import (
+	"pong/audio"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -14,14 +16,14 @@ func (g *Game) Update() {
 	if g.isWaiting4Play {
 		if rl.IsKeyPressed(rl.KeySpace) {
 			g.isWaiting4Play = !g.isWaiting4Play
-			rl.PlaySound(pauseSound)
+			rl.PlaySound(audio.Pause)
 		}
 		return
 	}
 
 	if rl.IsKeyPressed(rl.KeySpace) {
 		g.isPaused = !g.isPaused
-		rl.PlaySound(pauseSound)
+		rl.PlaySound(audio.Pause)
 	}
 	if g.isPaused {
 		return
