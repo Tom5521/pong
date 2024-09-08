@@ -27,7 +27,11 @@ func (g *Game) Update() {
 		g.Player.Points = 0
 		g.CPU.Points = 0
 
+		g.playerPoints.Text = "0"
+		g.cpuPoints.Text = "0"
+
 		rl.PlaySound(audio.Pause)
+		return
 	}
 
 	if rl.IsKeyPressed(rl.KeySpace) {
