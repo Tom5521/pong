@@ -137,8 +137,12 @@ func (g *Game) Draw() {
 func (g *Game) CreateLoop() {
 	rl.SetConfigFlags(rl.FlagWindowResizable)
 	rl.InitWindow(g.ScreenWidth, g.ScreenHeight, g.WindowTitle)
+	rl.InitAudioDevice()
 	defer rl.CloseWindow()
+	defer rl.CloseAudioDevice()
 	rl.SetTargetFPS(60)
+
+	loadSounds()
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()

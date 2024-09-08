@@ -28,9 +28,7 @@ func loadSound(name string) rl.Sound {
 	return rl.LoadSoundFromWave(wave)
 }
 
-func init() {
-	rl.InitAudioDevice()
-
+func loadSounds() {
 	beepSound = loadSound("beep.mp3")
 	loseSound = loadSound("lose.mp3")
 	pauseSound = loadSound("pause.wav")
