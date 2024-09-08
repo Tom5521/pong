@@ -21,6 +21,15 @@ func (g *Game) Update() {
 		return
 	}
 
+	if rl.GetKeyPressed() == rl.KeyR {
+		g.isWaiting4Play = true
+		g.ResetToDefaultState()
+		g.Player.Points = 0
+		g.CPU.Points = 0
+
+		rl.PlaySound(audio.Pause)
+	}
+
 	if rl.IsKeyPressed(rl.KeySpace) {
 		g.isPaused = !g.isPaused
 		rl.PlaySound(audio.Pause)
