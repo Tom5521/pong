@@ -13,15 +13,8 @@ func (g *Game) Update() {
 		g.refreshWindowSize(windowWidth, windowHeight)
 	}
 
-	if g.isWaiting4Play {
-		if rl.IsKeyPressed(rl.KeySpace) {
-			g.isWaiting4Play = !g.isWaiting4Play
-			rl.PlaySound(audio.Pause)
-		}
-		return
-	}
-
-	if rl.GetKeyPressed() == rl.KeyR {
+	switch rl.GetKeyPressed() {
+	case rl.KeyR:
 		g.isWaiting4Play = true
 		g.ResetToDefaultState()
 		g.Player.Points = 0
@@ -30,15 +23,20 @@ func (g *Game) Update() {
 		g.playerPoints.Text = "0"
 		g.cpuPoints.Text = "0"
 
-		rl.PlaySound(audio.Pause)
+		audio.Play(audio.Pause)
 		return
+	case rl.KeyM:
+		audio.Mute = !audio.Mute
+	case rl.KeySpace:
+		if g.isWaiting4Play {
+			g.isWaiting4Play = !g.isWaiting4Play
+		} else {
+			g.isPaused = !g.isPaused
+		}
+		audio.Play(audio.Pause)
 	}
 
-	if rl.IsKeyPressed(rl.KeySpace) {
-		g.isPaused = !g.isPaused
-		rl.PlaySound(audio.Pause)
-	}
-	if g.isPaused {
+	if g.isPaused || g.isWaiting4Play {
 		return
 	}
 
@@ -102,6 +100,7 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float) {
 
 	g.cpuPoints.FontSize = fontSize / 1.1
 	g.playText.FontSize = fontSize / 1.1
+	g.mutedText.FontSize = fontSize / 1.1
 
 	// Update text positions.
 	g.pausedText.X = (windowWidth / 2) + (100 - MeasureText(g.pausedText.Text, g.pausedText.FontSize).X)

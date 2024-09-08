@@ -22,7 +22,7 @@ func (g *Game) checkCollisions() {
 			g.Ball.SpeedX = -g.Ball.SpeedX
 		}
 
-		rl.PlaySound(audio.Beep)
+		audio.Play(audio.Beep)
 	}
 	if rl.CheckCollisionCircleRec(g.Ball.Vector, g.Ball.Radius, g.Player.Rectangle) {
 		// Check if the ball hits the top or the bottom of the paddle.
@@ -34,7 +34,7 @@ func (g *Game) checkCollisions() {
 			g.Ball.SpeedX = -g.Ball.SpeedX
 		}
 
-		rl.PlaySound(audio.Beep)
+		audio.Play(audio.Beep)
 	}
 }
 
@@ -65,14 +65,14 @@ func (g *Game) checkForPoints() {
 		g.CPU.Points++
 		g.cpuPoints.Text = strconv.Itoa(g.CPU.Points)
 
-		rl.PlaySound(audio.Lose)
+		audio.Play(audio.Lose)
 	}
 
 	if cpu {
 		g.Player.Points++
 		g.playerPoints.Text = strconv.Itoa(g.Player.Points)
 
-		rl.PlaySound(audio.Victory)
+		audio.Play(audio.Victory)
 	}
 
 	if player || cpu {

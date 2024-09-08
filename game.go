@@ -18,6 +18,7 @@ type Game struct {
 
 	pausedText Text
 	playText   Text
+	mutedText  Text
 
 	cpuPoints    Text
 	playerPoints Text
@@ -107,6 +108,12 @@ func NewGame(
 	}
 	g.playText.X = (DefaultWidth / 2) - MeasureText(g.playText.Text, g.playText.FontSize).X
 
+	g.mutedText = Text{
+		Text:     "MUTED",
+		Color:    rl.White,
+		FontSize: DefaultFontSize / 1.1,
+	}
+
 	return g
 }
 
@@ -133,6 +140,10 @@ func (g *Game) Draw() {
 
 	if g.isWaiting4Play {
 		g.playText.Draw()
+	}
+
+	if audio.Mute {
+		g.mutedText.Draw()
 	}
 }
 
