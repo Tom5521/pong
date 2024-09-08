@@ -60,7 +60,7 @@ func (g *Game) refreshWindowSize(windowWidth, windowHeight float) {
 	// CPU
 	g.CPU.Width = paddleWidth
 	g.CPU.Height = paddleHeight
-	g.CPU.Speed = speed
+	g.CPU.Speed = speed / 1.3
 
 	// Ball
 	if g.Ball.SpeedY <= -1 {
