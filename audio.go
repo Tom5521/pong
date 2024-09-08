@@ -22,7 +22,7 @@ func loadSound(name string) rl.Sound {
 	file, _ := assets.Open("assets/" + name)
 	bytes, _ := io.ReadAll(file)
 
-	parts := strings.SplitN(name, ".", 2)
+	parts := strings.Split(name, ".")
 
 	wave := rl.LoadWaveFromMemory("."+parts[len(parts)-1], bytes, rint(len(bytes)))
 	return rl.LoadSoundFromWave(wave)
