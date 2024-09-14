@@ -1,3 +1,5 @@
+# I set out to rewrite all the code without any extra help in my [pong2](https://github.com/Tom5521/pong2) repository.
+
 # Pong
 
 A simple pong game made with golang and raylib.
